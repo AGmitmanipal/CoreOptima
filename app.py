@@ -5,12 +5,13 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
-import openai
+from openai import OpenAI
 
-# Initialize Together.ai via OpenAI-compatible client
-TOGETHER_API_KEY = st.secrets["TOGETHER_API_KEY"]
-openai.api_key = TOGETHER_API_KEY
-openai.api_base = "https://api.together.xyz/v1"
+client = OpenAI(
+    api_key=TOGETHER_API_KEY,
+    base_url="https://api.together.xyz/v1"
+)
+
 
 MODEL_NAME = "mistralai/Mistral-7B-Instruct-v0.2"
 
@@ -87,13 +88,15 @@ Hard Leads:
 
 Give personalized, practical recommendations for how to convert each group of leads.
 """
-    response = openai.ChatCompletion.create(
-        model=MODEL_NAME,
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.7,
-        max_tokens=512
-    )
-    return response['choices'][0]['message']['content']
+    response = client.chat.completions.create(
+    model=MODEL_NAME,
+    messages=[{"role": "user", "content": prompt}],
+    temperature=0.7,
+    max_tokens=512
+)
+
+    return response.choices[0].message.content
+
 
 # Streamlit App
 st.title("CoreOptima - Sales Funnel & Lead Conversion Optimizer")
