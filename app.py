@@ -5,12 +5,18 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
+import streamlit as st
 from openai import OpenAI
 
+# Make sure this line appears before using TOGETHER_API_KEY
+TOGETHER_API_KEY = st.secrets["TOGETHER_API_KEY"]
+
+# Create the Together.ai-compatible client
 client = OpenAI(
     api_key=TOGETHER_API_KEY,
     base_url="https://api.together.xyz/v1"
 )
+
 
 
 MODEL_NAME = "mistralai/Mistral-7B-Instruct-v0.2"
@@ -89,11 +95,12 @@ Hard Leads:
 Give personalized, practical recommendations for how to convert each group of leads.
 """
     response = client.chat.completions.create(
-    model=MODEL_NAME,
+    model="mistralai/Mistral-7B-Instruct-v0.2",
     messages=[{"role": "user", "content": prompt}],
     temperature=0.7,
     max_tokens=512
 )
+
 
     return response.choices[0].message.content
 
