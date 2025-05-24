@@ -8,7 +8,6 @@ from datetime import datetime
 import openai
 
 # Initialize Together.ai via OpenAI-compatible client
-TOGETHER_API_KEY = "6035c2befcd1fed35857f71293c4e056a44c9256cf6628ada676ea4fc064ab14"
 TOGETHER_API_KEY = st.secrets["TOGETHER_API_KEY"]
 openai.api_key = TOGETHER_API_KEY
 openai.api_base = "https://api.together.xyz/v1"
