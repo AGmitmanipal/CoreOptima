@@ -129,7 +129,7 @@ if uploaded_file:
     st.write("⚖️ Medium Leads:", mid[['Lead Name', 'score']])
     st.write("⚠️ Hard Leads:", low[['Lead Name', 'score']])
 
-    st.subheader("💡 Recommendations (via Together.ai)")
+    st.subheader("💡 Recommendations")
     with st.spinner("Generating insights..."):
         insights = generate_recommendations(top, mid, low)
         st.markdown(insights)
