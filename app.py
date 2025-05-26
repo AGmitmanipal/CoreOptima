@@ -106,7 +106,7 @@ Give personalized, practical recommendations for how to convert each group of le
 
 
 # Streamlit App
-st.title("CoreOptima - Sales Funnel & Lead Conversion Optimizer")
+st.title("Purple Ash - Sales Funnel & Lead Conversion Optimizer")
 
 uploaded_file = st.file_uploader("Upload your sales funnel CSV/XLSX file", type=["csv", "xlsx"])
 
