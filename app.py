@@ -73,8 +73,7 @@ def visualize_funnel(df, mappings):
     st.pyplot(plt.gcf())
     plt.clf()
 
-# --- Advanced Data Insights ---
-st.subheader("📈 Additional Data Insights")
+
 def v1(df, mappings):
     st.markdown("### 🧭 Stage Distribution")
     stage_counts = df[mappings['Stage']].value_counts()
