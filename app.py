@@ -73,6 +73,46 @@ def visualize_funnel(df, mappings):
     st.pyplot(plt.gcf())
     plt.clf()
 
+# --- Advanced Data Insights ---
+st.subheader("📈 Additional Data Insights")
+
+# 1. Stage Distribution
+st.markdown("### 🧭 Stage Distribution")
+stage_counts = df[mappings['Stage']].value_counts()
+st.bar_chart(stage_counts)
+
+# 2. Engagement Activity Buckets
+st.markdown("### 🔔 Engagement vs Conversion Potential")
+df['engagement_bucket'] = pd.cut(df['days_since_contact'], bins=[-1, 3, 7, 30, 1000], 
+                                 labels=["<3 Days", "3-7 Days", "7-30 Days", ">30 Days"])
+engaged_stats = df.groupby('engagement_bucket')['score'].mean().reset_index()
+st.write("📊 Avg. Lead Score by Engagement Recency")
+st.bar_chart(data=engaged_stats, x='engagement_bucket', y='score')
+
+# 3. Time to Close Analysis (if 'Status' has "Closed Won")
+if 'Closed Won' in df[mappings['Status']].unique():
+    st.markdown("### ⏱️ Time to Convert (Closed Won Only)")
+    df['created_date'] = pd.to_datetime(df[mappings['Created Date']], errors='coerce')
+    df['closed_date'] = pd.to_datetime(df[mappings['Last Contact Date']], errors='coerce')
+    df['days_to_convert'] = (df['closed_date'] - df['created_date']).dt.days
+    won_df = df[df[mappings['Status']] == "Closed Won"]
+    st.write(f"Average days to convert: **{won_df['days_to_convert'].mean():.2f}**")
+    st.line_chart(won_df['days_to_convert'].dropna())
+
+# 4. Lead Source Effectiveness
+if 'lead_source' in df.columns:
+    st.markdown("### 🌍 Lead Source Conversion")
+    df['is_won'] = df[mappings['Status']] == "Closed Won"
+    conversion_by_source = df.groupby('lead_source')['is_won'].mean()
+    st.bar_chart(conversion_by_source)
+
+# 5. Sales Agent Performance
+if 'sales_agent' in df.columns:
+    st.markdown("### 👤 Sales Agent Success Rate")
+    agent_stats = df.groupby('sales_agent')['score'].mean().sort_values(ascending=False)
+    st.bar_chart(agent_stats)
+
+
 def bucket_leads(df):
     top = df[df['score'] >= 80].head(5)
     mid = df[(df['score'] >= 50) & (df['score'] < 80)].head(10)
