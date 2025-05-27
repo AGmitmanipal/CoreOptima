@@ -1,5 +1,6 @@
 # CoreOptima MVP: Predictive Lead Scoring and Funnel Insight Generator
 
+
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -7,6 +8,19 @@ import seaborn as sns
 from datetime import datetime
 import streamlit as st
 from openai import OpenAI
+
+st.set_page_config(
+    page_title="PurpleAsh - Business Optimizer",
+    page_icon="📊",
+    layout="centered",
+    initial_sidebar_state="auto",
+    menu_items={
+        'Get Help': None,
+        'Report a bug': None,
+        'About': None
+    }
+)
+
 
 # Make sure this line appears before using TOGETHER_API_KEY
 TOGETHER_API_KEY = st.secrets["TOGETHER_API_KEY"]
