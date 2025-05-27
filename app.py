@@ -10,7 +10,7 @@ import streamlit as st
 from openai import OpenAI
 
 st.set_page_config(
-    page_title="PurpleAsh - Business Optimizer",
+    page_title="PurpleAsh - AI Business Optimization",
     page_icon="📊",
     layout="centered",
     initial_sidebar_state="auto",
@@ -20,6 +20,7 @@ st.set_page_config(
         'About': None
     }
 )
+
 
 
 # Make sure this line appears before using TOGETHER_API_KEY
