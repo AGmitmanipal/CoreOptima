@@ -80,13 +80,11 @@ def score_leads(df, mappings):
     df['score'] = score
     return df
 
-def visualize_funnel(df, mappings):
-    funnel = df[mappings['Stage']].value_counts().reset_index()
-    funnel.columns = ['Stage', 'Count']
-    sns.barplot(x='Stage', y='Count', data=funnel)
-    plt.xticks(rotation=45)
-    st.pyplot(plt.gcf())
-    plt.clf()
+
+def v1(df, mappings):
+    st.markdown("### 🧭 Stage Distribution")
+    stage_counts = df[mappings['Stage']].value_counts()
+    st.bar_chart(stage_counts)
 
 
 
@@ -171,7 +169,8 @@ if uploaded_file:
     df = score_leads(df, mappings)
 
     st.subheader("🔍 Funnel Visualization")
-    visualize_funnel(df, mappings)
+    
+    v1(df, mappings)
     v2(df, mappings)
     v3(df, mappings)
     v4(df, mappings)
