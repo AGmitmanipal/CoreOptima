@@ -89,10 +89,7 @@ def visualize_funnel(df, mappings):
     plt.clf()
 
 
-def v1(df, mappings):
-    st.markdown("### 🧭 Stage Distribution")
-    stage_counts = df[mappings['Stage']].value_counts()
-    st.bar_chart(stage_counts)
+
 
 def v2(df, mappings):
  st.markdown("### 🔔 Engagement vs Conversion Potential")
@@ -175,7 +172,6 @@ if uploaded_file:
 
     st.subheader("🔍 Funnel Visualization")
     visualize_funnel(df, mappings)
-    v1(df, mappings)
     v2(df, mappings)
     v3(df, mappings)
     v4(df, mappings)
