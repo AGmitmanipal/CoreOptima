@@ -82,7 +82,7 @@ def score_leads(df, mappings):
 
 
 def v1(df, mappings):
-    st.markdown("###🔍 Funnel Visualization")
+    st.markdown("### 🔍 Funnel Visualization")
     stage_counts = df[mappings['Stage']].value_counts()
     st.bar_chart(stage_counts)
 
